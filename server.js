@@ -1,7 +1,7 @@
 
 var express = require( 'express' );
 var mongoose = require( 'mongoose' );
-var jewel = require( './jewel.js' );
+var Jewel = require( './jewel.js' );
 var bodyParser = require( 'body-parser' );
 
 var app = express();
@@ -15,7 +15,7 @@ mongoose.connect( 'mongodb://localhost:27017/jewel_db');
 app.get( '/jewelUser', function( req, res ) {
 
   //select/read
-  jewel.find({}, function( problem, jewelResults) {
+  Jewel.find({}, function( problem, jewelResults) {
     if ( problem ) {
       console.log( problem );
       res.sendStatus( 400 );
@@ -51,7 +51,25 @@ app.post( '/jewelUser', function( req, res ) {
   });
 });
 
-app.delete
+app.delete( '/jewelUser/:id', function( req, res, err ) {
+
+    Jewel.remove({_id: req.params.id}, function( err, response ) {
+        if (err) {
+          console.log( 'problem' );
+          res.sendStatus(500);
+        }
+        else {
+          console.log( 'working' );
+
+
+          res.sendStatus( 200 );
+        }
+      });
+});
+
+// app.put( '/jewelUser/:id', function( req, res ) {
+//   jewel
+// });
 
 
 
