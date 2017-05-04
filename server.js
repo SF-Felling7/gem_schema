@@ -67,9 +67,25 @@ app.delete( '/jewelUser/:id', function( req, res, err ) {
       });
 });
 
-// app.put( '/jewelUser/:id', function( req, res ) {
-//   jewel
-// });
+app.put( '/jewelUser/:id', function( req, res ) {
+  Jewel.update({_id: req.params.id}, {
+    name: req.body.name,
+    gem: req.body.gem,
+    estimated_value: req.body.estimated_value,
+    date: req.body.date
+  }, function( err, response ) {
+      if (err) {
+        console.log( 'problem' );
+        res.sendStatus(500);
+      }
+      else {
+        console.log( 'working' );
+
+
+        res.sendStatus( 200 );
+      }
+    });
+});
 
 
 
